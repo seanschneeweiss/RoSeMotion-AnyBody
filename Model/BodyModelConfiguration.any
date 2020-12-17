@@ -1,0 +1,29 @@
+#path __BM_PLUGIN_FILE__ "BodyModelConfiguration.any"
+#define BM_CONFIG_PLUGIN __BM_PLUGIN_FILE__
+
+
+
+// The model is without muscles
+#define BM_LEG_MUSCLES_RIGHT OFF
+#define BM_LEG_MUSCLES_LEFT OFF
+
+#define BM_ARM_MUSCLES_RIGHT OFF
+#define BM_ARM_MUSCLES_LEFT OFF
+
+#define BM_TRUNK_MUSCLES OFF
+
+
+
+    //#define BM_TRUNK_CERVICAL_MUSCLES ON
+    //#define BM_TRUNK_MUSCLES ON
+    #define BM_ARM_RIGHT ON
+    #define BM_ARM_DETAIL_HAND ON
+    #define BM_HAND_MODEL  _HAND_MODEL_RUHM_ 
+    #define BM_ARM_LEFT OFF
+    #define BM_LEG_MODEL OFF
+     #define BM_TRUNK ON
+    #define BM_TRUNK_NECK OFF
+    // #define BM_TRUNK_MUSCLES CONST_MUSCLES_NONE
+  #define BM_ARM_SHOULDER_RHYTHM OFF
+  #define BM_HAND_FINGER_RHYTHM  OFF
+  #define BM_SPINE_RHYTHM OFF

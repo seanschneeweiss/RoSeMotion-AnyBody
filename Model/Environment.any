@@ -1,0 +1,20 @@
+AnyFolder EnvironmentModel = {
+  //
+  /* **********************************************************
+  This folder contains the definition of the Environment
+  - GlobalRefFrame
+  
+  ********************************************************** */  
+  AnyFixedRefFrame GlobalRef = {
+      Origin ={0,0,0}; 
+      
+      AnyDrawRefFrame drw={
+        
+        ScaleXYZ = {0.1, 0.1, 0.1};
+        
+      };
+
+   
+  
+};
+};

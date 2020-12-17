@@ -1,0 +1,222 @@
+// ************************************
+// Drivers for the right fingers
+// ************************************
+
+AnyFolder Right ={
+  
+  
+
+  AnyKinEqInterPolDriver CMC1Flexion={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger1.Jnt.CMCFlexion;
+    Data= {..JntPos.Right.Finger1.CMCFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger1.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+  
+  AnyKinEqInterPolDriver CMC1Abduction={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger1.Jnt.CMCAbduction;
+    Data={..JntPos.Right.Finger1.CMCAbductionVec}*pi/180;  
+    T=..JntPos.Right.Finger1.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+  
+  
+  AnyKinEqInterPolDriver  MCP1Flexion={
+    AnyRevoluteJoint &ref= ..RefHM.Right.ShoulderArm.Seg.Hand.Finger1.Jnt.MCPFlexion;
+    Data={..JntPos.Right.Finger1.MCPFlexionVec}*pi/180;
+    T=..JntPos.Right.Finger1.FingerTime;
+    Reaction.Type={Off};
+    Type=Bspline;
+    CType = {Soft}; 
+  };
+  AnyKinEqInterPolDriver  MCP1Abduction={
+    AnyRevoluteJoint &ref= ..RefHM.Right.ShoulderArm.Seg.Hand.Finger1.Jnt.MCPAbduction;
+    Data={..JntPos.Right.Finger1.MCPAbductionVec}*pi/180;
+    T=..JntPos.Right.Finger1.FingerTime; 
+    Reaction.Type={Off};
+    Type=Bspline;
+    CType = {Soft}; 
+  };
+  
+  AnyKinEqInterPolDriver  DIP1={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger1.Jnt.DIP;
+    Data={..JntPos.Right.Finger1.DIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger1.FingerTime; 
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+  
+  //Drive the CMC joint so that it points at MCP joint 
+    AnyKinEqSimpleDriver CMC2={
+      AnyKinLinear Lin={
+        Ref=0;
+        AnyRefNode &ref1=...RefHM.Right.ShoulderArm.Seg.Hand.Finger2.Seg.Metacarpal.DistalJointNode;
+        AnyRefNode  &ref2= ...RefHM.Right.ShoulderArm.Seg.Hand.Finger2.MCPNode;
+      };
+      MeasureOrganizer={0,2};  //x and z, y is longitudinal
+      DriverPos={0,0};
+      DriverVel={0,0};
+      Reaction.Type ={Off,Off};
+    };
+ 
+  
+  AnyKinEqInterPolDriver  MCP2={
+    AnyUniversalJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger2.Jnt.MCP;
+    Data={..JntPos.Right.Finger2.MCPFlexionVec,..JntPos.Right.Finger2.MCPAbductionVec}*pi/180;  
+    T=..JntPos.Right.Finger2.FingerTime;
+    Type=Bspline;
+    CType = {Soft,Soft}; 
+    Reaction.Type={Off,Off};
+  };  
+  
+  
+  AnyKinEqInterPolDriver  PIP2={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger2.Jnt.PIP;
+    Data={..JntPos.Right.Finger2.PIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger2.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+  
+  
+  AnyKinEqInterPolDriver  DIP2={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger2.Jnt.DIP;
+    Data={..JntPos.Right.Finger2.DIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger2.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type = Off;
+  };
+
+      //Drive the CMC joint so that it points at MCP joint 
+    AnyKinEqSimpleDriver CMC3={
+      AnyKinLinear Lin={
+        Ref=0;
+        AnyRefNode &ref1=...RefHM.Right.ShoulderArm.Seg.Hand.Finger3.Seg.Metacarpal.DistalJointNode;
+        AnyRefNode  &ref2= ...RefHM.Right.ShoulderArm.Seg.Hand.Finger3.MCPNode;
+      };
+      MeasureOrganizer={0,2};  //x and z, y is longitudinal
+      DriverPos={0,0};
+      DriverVel={0,0};
+      Reaction.Type ={Off,Off};
+    };
+ 
+  
+  AnyKinEqInterPolDriver  MCP3={
+    AnyUniversalJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger3.Jnt.MCP;
+    Data={..JntPos.Right.Finger3.MCPFlexionVec,..JntPos.Right.Finger3.MCPAbductionVec}*pi/180;  
+    T=..JntPos.Right.Finger3.FingerTime;
+    Type=Bspline;
+    CType = {Soft,Soft}; 
+    Reaction.Type={Off,Off};
+  };  
+  
+  AnyKinEqInterPolDriver  PIP3={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger3.Jnt.PIP;
+    Data={..JntPos.Right.Finger3.PIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger3.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+
+  AnyKinEqInterPolDriver  DIP3={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger3.Jnt.DIP;
+    Data={..JntPos.Right.Finger3.DIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger3.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+
+      //Drive the CMC joint so that it points at MCP joint 
+    AnyKinEqSimpleDriver CMC4={
+      AnyKinLinear Lin={
+        Ref=0;
+        AnyRefNode &ref1=...RefHM.Right.ShoulderArm.Seg.Hand.Finger4.Seg.Metacarpal.DistalJointNode;
+        AnyRefNode  &ref2= ...RefHM.Right.ShoulderArm.Seg.Hand.Finger4.MCPNode;
+      };
+      MeasureOrganizer={0,2};  //x and z, y is longitudinal
+      DriverPos={0,0};
+      DriverVel={0,0};
+      Reaction.Type ={Off,Off};
+    };
+ 
+  AnyKinEqInterPolDriver  MCP4={
+    AnyUniversalJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger4.Jnt.MCP;
+    Data={..JntPos.Right.Finger4.MCPFlexionVec,..JntPos.Right.Finger4.MCPAbductionVec}*pi/180;  
+    T=..JntPos.Right.Finger4.FingerTime;
+    Type=Bspline;
+    CType = {Soft,Soft}; 
+    Reaction.Type={Off,Off};
+  };  
+  
+  AnyKinEqInterPolDriver  PIP4={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger4.Jnt.PIP;
+    Data={..JntPos.Right.Finger4.PIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger4.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+
+  AnyKinEqInterPolDriver  DIP4={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger4.Jnt.DIP;
+    Data={..JntPos.Right.Finger4.DIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger4.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+    
+  //Drive the CMC joint so that it points at MCP joint 
+    AnyKinEqSimpleDriver CMC5={
+      AnyKinLinear Lin={
+        Ref=0;
+        AnyRefNode &ref1=...RefHM.Right.ShoulderArm.Seg.Hand.Finger5.Seg.Metacarpal.DistalJointNode;
+        AnyRefNode  &ref2= ...RefHM.Right.ShoulderArm.Seg.Hand.Finger5.MCPNode;
+      };
+      MeasureOrganizer={0,2};  //x and z, y is longitudinal
+      DriverPos={0,0};
+      DriverVel={0,0};
+      Reaction.Type ={Off,Off};
+    };
+ 
+  
+  AnyKinEqInterPolDriver  MCP5={
+    AnyUniversalJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger5.Jnt.MCP;
+    Data={..JntPos.Right.Finger5.MCPFlexionVec,..JntPos.Right.Finger5.MCPAbductionVec}*pi/180;  
+    T=..JntPos.Right.Finger5.FingerTime;
+    Type=Bspline;
+    CType = {Soft,Soft}; 
+    Reaction.Type={Off,Off};
+  };  
+  
+  AnyKinEqInterPolDriver  PIP5={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger5.Jnt.PIP;
+    Data={..JntPos.Right.Finger5.PIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger5.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+
+  AnyKinEqInterPolDriver  DIP5={
+    AnyRevoluteJoint &ref=  ..RefHM.Right.ShoulderArm.Seg.Hand.Finger5.Jnt.DIP;
+    Data={..JntPos.Right.Finger5.DIPFlexionVec}*pi/180;  
+    T=..JntPos.Right.Finger5.FingerTime;
+    Type=Bspline;
+    CType = {Soft}; 
+    Reaction.Type={Off};
+  };
+
+
+  
+  
+};

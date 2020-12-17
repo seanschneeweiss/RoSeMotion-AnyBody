@@ -1,0 +1,114 @@
+#include "libdef.any"
+
+/* ----------------------------------------------------------------------------
+This model is based on the FreePostureFullBodyMove model from AMMR 2.1
+There are also some additional includes from the Hand model based on AMMR 1.6 by Lucas
+---------------------------------------------------------------------------- */
+
+Main = {
+  
+  // ----------------------------------------------------------
+  // Path to draw settings
+  // ----------------------------------------------------------
+  #path BM_DRAWSETTINGS_FILE "Model/DrawSettings.any"
+  
+
+  // ----------------------------------------------------------
+  // Body Model Configuration
+  // ----------------------------------------------------------
+  #include "Model/BodyModelConfiguration.any"
+  
+
+  // Remove default drivers
+  #define BM_MANNEQUIN_DRIVER_DEFAULT OFF
+  
+
+  // Save interpolated Hand Joint Angles
+  #define HAND_INTERPOL_OUTPUT ON
+
+
+  
+  // --------------------------------------------------------------------------
+  // The Mannequin file specifies load-time positions for all the segments
+  // in the HumanModel. This is important for the model's ablity to resolve
+  // all the kinematic constraints when the model is analyzed.
+  // The mannequin file also drives those degrees of freedom of the human 
+  // model that are not governed by problem-specific drivers at run time.    
+  // --------------------------------------------------------------------------
+  
+  // use different initial positions for two configurations
+  #path BM_MANNEQUIN_FILE "Model/MannequinInterpolation.any" 
+  
+  // Model of the human body to be used for the analysis  
+  #include "Body/AAUHuman/HumanModel.any"
+  
+  
+  // The actual model where all components are assembled
+  AnyFolder Model = {
+    // Body model without default drivers
+    AnyFolder &HumanModel = .HumanModel.BodyModel;
+    // Reference to the mannequin folder (used by drivers)
+    AnyFolder &Mannequin = .HumanModel.Mannequin;
+    
+    // Environment with defined Handgrip-version 
+    #include "Model/Environment.any"  
+    
+    // Constraints and drivers
+    AnyFolder ModelEnvironmentConnection = {    
+      #include "Model/JointsAndDriversInterpolation.any"
+    };
+  }; // Model
+  
+  #if HAND_INTERPOL_OUTPUT == 1
+  AnyKinStudy InterpolationAngles = {
+    AnyFolder &Model = .Model;
+    tStart = 0.0;
+    tEnd = 1.0;
+    nStep = 187;
+    Gravity = {0.0, -9.81, 0.0};
+    #include "Tools\AnyMocap\HandJointAngleOutputs.any" 
+  };
+  #endif
+    
+  AnyBodyStudy Study = {
+    AnyFolder &Model = .Model;
+    tStart =0.02;
+    tEnd = 0.98;
+    Gravity = {0.0, -9.81, 0.0};
+    //#include "Tools\AnyMocap\HandJointAngle_In.any"
+    #include "Tools\AnyMocap\HandJointAngle_Out.any"
+    AnyVar myparameter = DesignVar(0);
+    //InitialConditions.KinematicTol =0.01;
+    //InitialConditions.SingleStepOnOff = On;
+    //Kinematics.KinematicTol =0.01;
+    
+    InitialConditions.KinematicTol=1e-4;
+    Kinematics.KinematicTol=1e-4;      
+    //InitialConditions.SolverType = KinSolOverDeterminate;
+    //Kinematics.SolverType = KinSolOverDeterminate;
+
+    InverseDynamics.Criterion = {    
+      //Type =MR_MinMaxStrict;
+      Type =MR_Linear;
+      //MR_MinMaxStrict;
+      // MR_Polynomial;//MR_MinMaxStrict ;//MR_QuadraticAux;
+      //MR_Polynomial; //MR_MinMaxStrict  ;//
+      //AuxLinearTerm.Weight = 1;
+
+    };
+    
+    nStep = DesignVar(150);
+    
+    
+
+    
+    
+    
+    
+    
+    
+  }; // End of study
+  
+   
+}; //Main
+
